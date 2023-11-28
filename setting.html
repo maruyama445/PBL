@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <div>
+            <h1>設定</h1>
+            <h2>再生画面</h2>
+            <table border="1" style="border-collapse: collapse;">
+                <tr><th></th><td><h3>再生ボタン</h3></td></tr>
+                <tr>
+                    <th>文字表示</th>
+                    <td>
+                        <input type="radio" name="text_1" value="1" id="text1" style="transform:scale(2.0);"><label for="text1"> あり</label>
+                        <input type="radio" name="text_1" value="2" id="text2" style="transform:scale(2.0);"><label for="text2"> なし</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>色(文字)<br><span id="msg_color_t1">#0000FF</span></th>
+                    <td>
+                        <input type="color" id="color_text1">
+                    </td>
+                </tr>
+                <tr>
+                    <th>色(ボタン)<br><span id="msg_color1">#0000FF</span></th>
+                    <td>
+                        <input type="color" id="color_start">
+                    </td>
+                </tr>
+                <tr>
+                    <th>色(ボタン押下中)<br><span id="msg_color4">#0000FF</span></th>
+                    <td>
+                        <input type="color" id="color_start2">
+                    </td>
+                </tr>
+                <tr><th></th><td><h3>設定ボタン</h3></td></tr>
+                <tr>
+                    <th>文字表示</th>
+                    <td>
+                        <input type="radio" name="text_2" value="1" id="text1" style="transform:scale(2.0);"><label for="text1"> あり</label>
+                        <input type="radio" name="text_2" value="2" id="text2" style="transform:scale(2.0);"><label for="text2"> なし</label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>色(文字)<br><span id="msg_color_t2">#0000FF</span></th>
+                    <td>
+                        <input type="color" id="color_text2">
+                    </td>
+                </tr>
+                <tr>
+                    <th>色(ボタン)<br><span id="msg_color2">#0000ff</span></th>
+                    <td>
+                        <input type="color" id="color_back">
+                    </td>
+                </tr>
+            </table>
+
+            <h2>設定画面</h2>
+            <table border="1" style="border-collapse: collapse;">
+                <tr>
+                    <th></th><td><h3>戻るボタン</h3></td>
+                </tr>
+                <tr>
+                    <th>色(文字)<br><span id="msg_color_t3">#0000FF</span></th>
+                    <td>
+                        <input type="color" id="color_text3">
+                    </td>
+                </tr>
+                <tr>
+                    <th>色(ボタン)<br><span id="msg_color3">#0000ff</span></th>
+                    <td>
+                        <input type="color" id="color_back2">
+                    </td>
+                </tr>
+            </table>
+            <button type="button" id="back2" onclick="link()"><b id="return">戻る</b></button>
+        </div>
+
+        <script>
+            let text1_elements = document.getElementsByName("text_1");
+            let text2_elements = document.getElementsByName("text_2");
+
+            var back = document.getElementById("back2");
+            var back_txt = document.getElementById("return");
+
+            var colorPicker1 = document.getElementById("color_start")
+            var colorPicker2 = document.getElementById("color_back")
+            var colorPicker3 = document.getElementById("color_back2")
+            var colorPicker4 = document.getElementById("color_start2")
+
+            var textColor1 = document.getElementById("color_text1");
+            var textColor2 = document.getElementById("color_text2");
+            var textColor3 = document.getElementById("color_text3");
+
+            var color_txt1 = document.getElementById("msg_color1")
+            var color_txt2 = document.getElementById("msg_color2")
+            var color_txt3 = document.getElementById("msg_color3")
+            var color_txt4 = document.getElementById("msg_color4")
+            var color_txt_t1 = document.getElementById("msg_color_t1")
+            var color_txt_t2 = document.getElementById("msg_color_t2")
+            var color_txt_t3 = document.getElementById("msg_color_t3")
+
+            var query = location.search;
+            var text1 = query.split('text1=')[1].split('&')[0];
+            var text2 = query.split('text2=')[1].split('&')[0];
+            var color1 = "#" + query.split('color1=')[1].split('&')[0];
+            var color2 = "#" + query.split('color2=')[1].split('&')[0];
+            var color3 = "#" + query.split('color3=')[1].split('&')[0];
+            var color4 = "#" + query.split('color4=')[1].split('&')[0];
+            var color_t1 = "#" + query.split('colorT1=')[1].split('&')[0];
+            var color_t2 = "#" + query.split('colorT2=')[1].split('&')[0];
+            var color_t3 = "#" + query.split('colorT3=')[1].split('&')[0];
+            colorPicker1.value = color1;
+            colorPicker2.value = color2;
+            colorPicker3.value = color3;
+            colorPicker4.value = color4;
+            textColor1.value = color_t1;
+            textColor2.value = color_t2;
+            textColor3.value = color_t3;
+            back.style.backgroundColor = colorPicker3.value;
+            back_txt.style.color = textColor3.value;
+
+            text1_elements[parseInt(text1)-1].checked = true;
+            text2_elements[parseInt(text2)-1].checked = true;
+
+            msg_color1.innerHTML = color1;
+            msg_color2.innerHTML = color2;
+            msg_color3.innerHTML = color3;
+            msg_color4.innerHTML = color4;
+            msg_color_t1.innerHTML = color_t1;
+            msg_color_t2.innerHTML = color_t2;
+            msg_color_t3.innerHTML = color_t3;
+
+            var pickColor = function(colorPicker, color_txt) {
+                return function(evt){
+                    color_txt.innerHTML = colorPicker.value;
+                }
+            }
+            var pickColor2 = function(colorPicker, color_txt) {
+                return function(evt){
+                    color_txt.innerHTML = colorPicker.value;
+                    back.style.backgroundColor = colorPicker.value;
+                }
+            }
+            var pickColor3 = function(colorPicker, color_txt) {
+                return function(evt){
+                    color_txt.innerHTML = colorPicker.value;
+                    back_txt.style.color = colorPicker.value;
+                }
+            }
+
+            colorPicker1.addEventListener("input", pickColor(colorPicker1, msg_color1));
+            colorPicker2.addEventListener("input", pickColor(colorPicker2, msg_color2));
+            colorPicker3.addEventListener("input", pickColor2(colorPicker3, msg_color3));
+            colorPicker4.addEventListener("input", pickColor(colorPicker4, msg_color4));
+            textColor1.addEventListener("input", pickColor(textColor1, msg_color_t1));
+            textColor2.addEventListener("input", pickColor(textColor2, msg_color_t2));
+            textColor3.addEventListener("input", pickColor3(textColor3, msg_color_t3));
+
+            function link(){
+                let len = 2;
+
+                for (let i = 0; i < len; i++){
+                    if (text1_elements.item(i).checked){
+                        checkText1 = text1_elements.item(i).value;
+                    }
+                    if (text2_elements.item(i).checked){
+                        checkText2 = text2_elements.item(i).value;
+                    }
+                }
+                location.href = "index.html?text1=" + checkText1 + "&text2=" + checkText2 + "&color1=" + colorPicker1.value.slice(1) + "&color2=" + colorPicker2.value.slice(1) + "&color3=" + colorPicker3.value.slice(1) + "&color4=" + colorPicker4.value.slice(1) + "&colorT1=" + textColor1.value.slice(1) + "&colorT2=" + textColor2.value.slice(1) + "&colorT3=" + textColor3.value.slice(1);
+            }
+        </script>
+    </body>
+</html>
